@@ -20,8 +20,10 @@ public class AlunosService {
     private AlunosRepository repository;
 
     public List<AlunosResponseDTO> listarTodos (){
-        return repository.findAll().stream().map(alunos -> new AlunosResponseDTO(alunos.getNome(),
-                alunos.getMatricula(), alunos.getIdade(), alunos.getTelefone())).toList();
+        return repository.findAll().stream().map(alunos ->
+                new AlunosResponseDTO(alunos.getNome(),
+                alunos.getMatricula(), alunos.getIdade(),
+                        alunos.getTelefone())).toList();
     }
 
     public AlunosModel salvarTodos (AlunosRequestDTO requestDTO){
@@ -43,7 +45,7 @@ public class AlunosService {
         if (!repository.existsById(id)){
             throw new RuntimeException("Aluno não encontrado❌😒.");
         }
-        AlunosModel novoAluno = new AlunosModel();
+        AlunosModel novoAluno = repository.findById(id).get();
         novoAluno.setNome(alunosDTO.getNome());
         novoAluno.setMatricula(alunosDTO.getMatricula());
         novoAluno.setEmail(alunosDTO.getEmail());
@@ -56,7 +58,7 @@ public class AlunosService {
 
     public void deletar (Long id){
         if (!repository.existsById(id)){
-            throw new RuntimeException("Cadastro do aluno deletado com sucesso!👌");
+            throw new RuntimeException("Aluno não encontrado!❌😒");
         }
         repository.deleteById(id);
     }

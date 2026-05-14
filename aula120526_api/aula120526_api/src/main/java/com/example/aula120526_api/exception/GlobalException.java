@@ -6,6 +6,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,5 +25,9 @@ public class GlobalException {
     public ResponseEntity<Map<String, Object>> methodArgumentNotValidException (MethodArgumentNotValidException erro){
         String mensagem = erro.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(","));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("Mensagem", mensagem));
+    }
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Map<String, Object>> NoResourceFoundException (NoResourceFoundException erro){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("Mensagem", "Recurso não encontrado."));
     }
 }

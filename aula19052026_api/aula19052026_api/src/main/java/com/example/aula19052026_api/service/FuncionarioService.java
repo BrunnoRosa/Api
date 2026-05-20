@@ -42,7 +42,7 @@ public class FuncionarioService {
     }
 
     public FuncionarioModel atualizar (Long id, FuncionarioRequestDTO funcionarioDTO){
-        if (repository.existsById(id)){
+        if (!repository.existsById(id)){
             throw new RuntimeException("Cadastro não encontrado❌⚠️");
         }
         FuncionarioModel atualizarFunc = new FuncionarioModel();

@@ -41,7 +41,7 @@ public class FuncionarioService {
         return repository.save(novoFunc);
     }
 
-    public FuncionarioModel Atualizar (Long id, FuncionarioRequestDTO funcionarioDTO){
+    public FuncionarioModel atualizar (Long id, FuncionarioRequestDTO funcionarioDTO){
         if (repository.existsById(id)){
             throw new RuntimeException("Cadastro não encontrado❌⚠️");
         }

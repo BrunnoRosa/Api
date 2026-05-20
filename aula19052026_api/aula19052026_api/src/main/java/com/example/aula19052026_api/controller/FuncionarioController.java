@@ -32,7 +32,7 @@ public class FuncionarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity <Map<String, Object>> atualizar (@PathVariable Long id, @RequestBody @Valid FuncionarioRequestDTO funcionariotDTO){
-        service.Atualizar(id,funcionariotDTO);
+        service.atualizar(id,funcionariotDTO);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("Mensagem", "Cadastro atualizado com sucesso.✅"));
     }
 
